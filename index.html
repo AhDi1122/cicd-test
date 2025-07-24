@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Light blue-gray background */
+            background-color: #f0f4f8;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,11 +26,11 @@
             width: 500px;
         }
         h1 {
-            color: #1a202c; /* Dark text for heading */
+            color: #1a202c;
             margin-bottom: 1rem;
         }
         p {
-            color: #4a5568; /* Slightly lighter text for paragraph */
+            color: #4a5568;
             font-size: 1.125rem;
         }
     </style>
@@ -39,12 +39,41 @@
     <div class="container">
         <!-- Main heading for the web UI -->
         <h1 class="text-3xl font-bold mb-4">Welcome to Your Web UI!</h1>
-        <!-- Paragraph displaying the message -->
+
+        <!-- DUPLICATED BLOCK START -->
         <p class="text-lg">This is a simple message displayed from your Dockerized web application.</p>
         <p class="text-lg">Team is working to resolve the issue asap!</p>
+        <!-- DUPLICATED BLOCK END -->
+
+        <!-- DUPLICATED BLOCK AGAIN TO TRIGGER DUPLICATION -->
+        <p class="text-lg">This is a simple message displayed from your Dockerized web application.</p>
+        <p class="text-lg">Team is working to resolve the issue asap!</p>
+        <!-- DUPLICATED BLOCK END -->
+
+        <!-- HOTSPOT: innerHTML and eval usage -->
+        <div id="vulnerable"></div>
+        <script>
+            const userInput = "<img src=x onerror=alert('XSS')>";
+            document.getElementById("vulnerable").innerHTML = userInput;
+
+            const command = "2 + 2";
+            const result = eval(command); // This is unsafe
+            console.log("Eval result:", result);
+        </script>
+
+        <!-- Vulnerable Input without validation -->
+        <form action="/submit" method="POST">
+            <input type="text" name="username">
+            <input type="password" name="password" value="hardcoded_password">
+            <input type="submit" value="Login">
+        </form>
+
+        <!-- Unsafe link and missing attributes -->
+        <a href="#">Click here</a>
+        <img src="invalid.jpg">
+
         <!-- A small footer for context -->
         <p class="text-sm text-gray-500 mt-6">Main / Prod Branch</p>
     </div>
 </body>
 </html>
-
